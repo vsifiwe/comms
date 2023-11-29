@@ -1,7 +1,7 @@
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import {Login, Register, Dashboard, Comm, SingleQuery} from '../pages'
+import {Login, Register, Dashboard, Comm, SubmitQuery, ViewQuery} from '../pages'
 
 const router = createBrowserRouter([
     {
@@ -26,7 +26,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/query",
-        element: <SingleQuery />,
+        element: <SubmitQuery />,
+    },
+    {
+        path: "/view",
+        element: <ViewQuery />,
     },
 ]);
 

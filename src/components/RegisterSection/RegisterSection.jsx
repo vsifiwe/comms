@@ -42,16 +42,18 @@ export default function RegisterSection() {
   const formik = useFormik({
     initialValues: {
       email: "",
-      username: "",
+      name: "",
       password: "",
     },
-    // onSubmit: (values) => {
-    //   dispatch(() => startEmailLogin());
-    //   axios
-    //     .post(`${configFile.api}/auth/register/`, values)
-    //     .then(() => navigate("/login"))
-    //     .catch(() => alert("An error occured in your registration"));
-    // },
+    onSubmit: (values) => {
+      axios
+        .post(`http://127.0.0.1:8000/register/`, values)
+        .then(() => navigate("/comm"))
+        .catch((err) => {
+          console.log(err.response)
+          alert(err.response.data.message)
+        });
+    },
   });
 
   return (
@@ -108,11 +110,11 @@ export default function RegisterSection() {
                   margin="normal"
                   required
                   fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                  value={formik.values.username}
+                  id="name"
+                  label="Full Name"
+                  name="name"
+                  autoComplete="name"
+                  value={formik.values.name}
                   onChange={formik.handleChange}
                   autoFocus
                 />

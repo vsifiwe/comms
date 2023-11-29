@@ -40,22 +40,25 @@ const theme = createTheme();
 
 export default function LoginSection() {
   const navigate = useNavigate();
-//   const isLoading = useSelector((state) => state.auth.isLoading);
-//   const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    // onSubmit: (values) => {
-    //   // console.log(values);
-    //   dispatch(() => dispatch(startEmailLogin()));
-    //   axios
-    //     .post(`${configFile.api}/auth/login/`, values)
-    //     .then((res) => dispatch(handleEmailLogin(res.data)))
-    //     .then(() => navigate("/dashboard"));
-    // },
+    onSubmit: (values) => {
+      axios
+        .post(`http://127.0.0.1:8000/login/`, values)
+        .then((res) => {
+          // store key in browser
+          localStorage.setItem('querykey', res.data.access)
+        })
+        .then(() => navigate("/comm"))
+        .catch(err => {
+          console.log(err.response)
+          alert(err.response.data.message)
+        });
+    },
   });
 
   return (
@@ -146,7 +149,7 @@ export default function LoginSection() {
                 >
                   {/* <GoogleButton /> */}
                 </Button>
-                
+
               </div>
               <Grid container>
                 <Grid item xs>
